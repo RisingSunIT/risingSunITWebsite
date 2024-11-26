@@ -1,0 +1,59 @@
+### Next.js tutorial ###
+
+## commands
+- 「npx create-next-app」→ install using 
+- "rafce" as a shortcut to create a simple React component
+- 「npm run dev」→ run app in development mode
+- 「npm run build」→ create a new production build
+- 「npm start」→ run app in production mode
+- 「npm i -D daisyui@latest」→ install daisyUI which extends Tailwind with more components
+
+## random
+- choose to use either n or nvm, not both
+- use "Link" to navigate users to other pages
+- 「CMD + D」on Mac or 「CTRL + D」on Windows to activate multiple cursors
+
+## technologies ##
+
+# Extensions
+- ES7+ React/Redux/React-Native snippets
+- JavaScript and TypeScript Nightly
+- Tailwind CSS IntelliSense
+
+# Node.js
+- base
+
+# Next.js
+- Framework that allows you to execute React on the server (whereas React renders on frontend)
+→ prerender sites (static site generation) to render sites faster
+→ server side rendering (SSR) for safer, simpler and search-engine friendly sites
+・however, we cannot access APIs, maintain state or listen to browser eevents with SSR
+・therefore, we use Client Side Rendering, but only when we absolutely must
+
+# Tailwind CSS
+- offers CSS classes, kind of like Bootstrap
+- create stylesheets ".module.css", define classes with camelCase notation
+
+# daisyUI
+- add more components to Tailwind
+- need to add 「module.export = {plugins:[require("daisyui")],}」to tailwind.config.js
+
+## folder structure
+
+# root
+
+# app
+- contains routes
+- "layout.tsx" → common layout for our pages
+- "page.tsx" → represents our home page
+- every subfolder represents a subroute and should have a page.tsx file to make them publically available
+→ e.g. app/users/new will be available at that route if it has a page.tsx file
+→ by contrast app/components will not be available as there is no page.tsx file there
+- by default, all pages are SSR, add 'use client'; to change them to client components (not recomende for entire pages)
+→ best practice is to separate the components that you want to have as client components (e.g. buttons etc. that require user input) into separate files, make them client components and then import them
+→ fetch data in server components, check using the network tab and "preview" → this is what search engines see
+→ this will also cache data in memory (we can then manipulate the cache)
+→ static rendering (site at build time) and dynamic rendering (site at request time) available
+
+# public
+- all public assets (images, etc.)
