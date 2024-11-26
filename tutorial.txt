@@ -1,7 +1,7 @@
 ### Next.js tutorial ###
 
 ## commands
-- 「npx create-next-app」→ install using 
+- 「npx create-next-app」→ install next.js template app
 - "rafce" as a shortcut to create a simple React component
 - 「npm run dev」→ run app in development mode
 - 「npm run build」→ create a new production build
