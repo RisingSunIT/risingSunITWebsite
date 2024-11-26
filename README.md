@@ -2,6 +2,13 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
+# useful commands
+- "rafce" as a shortcut to create a simple React component
+- 「npm run dev」→ run app in development mode
+- 「npm run build」→ create a new production build
+- 「npm start」→ run app in production mode
+- 「npm i -D daisyui@latest」→ install daisyUI which extends Tailwind with more components
+
 First, run the development server:
 
 ```bash

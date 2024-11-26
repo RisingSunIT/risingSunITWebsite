@@ -14,9 +14,7 @@ export default {
       },
     },
   },
-  // add daisyui components
   plugins: [require("daisyui")],
-  // add default themes from daisyui
   daisyui : {
     themes: ["winter"]
   }
