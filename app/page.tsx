@@ -1,12 +1,16 @@
-import Link from "next/link";
-import ProductCard from "./components/ProductCard/ProductCard";
+import NavigationBar from "./components/NavigationBar/page";
+import Blog from "./components/Blog/page";
+import About from "./components/About/page";
+import Projects from "./components/Projects/page";
 
 export default function Home() {
   return (
     <main>
-      <h1>Hello World</h1>
-      <Link href="/users">Users</Link>
-      <ProductCard/>
-      </main>
+      <NavigationBar/>
+      <div id="divNavBarSpacer" className="h-[120px]"/>
+      <Blog></Blog>
+      <About></About>
+      <Projects></Projects>
+    </main>
   );
 }

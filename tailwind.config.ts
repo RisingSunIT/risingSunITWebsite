@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 
 export default {
+  darkMode: "class", // Enables dark mode via the "dark" class
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -15,7 +16,7 @@ export default {
     },
   },
   plugins: [require("daisyui")],
-  daisyui : {
-    themes: ["winter"]
-  }
+  daisyui: {
+    themes: ["winter"], // DaisyUI theme
+  },
 } satisfies Config;
