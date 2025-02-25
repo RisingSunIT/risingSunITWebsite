@@ -13,6 +13,34 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      animation: {
+        "move-horizontal": "moveX 4s ease-in infinite",
+        "move-horizontal-reverse": "moveXReverse 4s ease-in infinite",
+        "move-vertical-up": "moveYUp 4s ease-in infinite",
+        "move-vertical-down": "moveYDown 4s ease-in infinite",
+      },
+      keyframes: {
+        moveX: {
+          "0%": { transform: "translateX(-500%)", opacity:"0.0" },
+          "50%": { opacity:"1.0" },
+          "100%": { transform: "translateX(500%)", opacity:"0.0" },
+        },
+        moveXReverse: {
+          "0%": { transform: "translateX(500%)", opacity:"0.0" },
+          "50%": { opacity:"1.0" },
+          "100%": { transform: "translateX(-500%)", opacity:"0.0" },
+        },
+        moveYUp: {
+          "0%": { transform: "translateY(250%)", opacity:"0.0" },
+          "50%": { opacity:"1.0" },
+          "100%": { transform: "translateY(-200%)", opacity:"0.0" },
+        },
+        moveYDown: {
+          "0%": { transform: "translateY(-200%)", opacity:"0.0" },
+          "50%": { opacity:"1.0" },
+          "100%": { transform: "translateY(250%)", opacity:"0.0" },
+        },
+      },
     },
   },
   plugins: [require("daisyui")],

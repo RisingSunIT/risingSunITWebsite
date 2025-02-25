@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import DarkModeToggle from "../dark_mode_button";
 import Logo from "./logo";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
 
 export default function NavigationBar() {
   const [currentSection, setCurrentSection] = useState("blog");
@@ -37,21 +38,29 @@ export default function NavigationBar() {
     const aboutSection = document.getElementById("about");
     const projectsSection = document.getElementById("projects");
     const windowHeight = window.innerHeight;
-
+  
     if (!aboutSection || !projectsSection) return { about: 0, projects: 0 };
-
+  
     const aboutTop = aboutSection.getBoundingClientRect().top;
     const projectsTop = projectsSection.getBoundingClientRect().top;
-
-    const aboutProgress = 1 - Math.max(0, Math.min(1, aboutTop / windowHeight));
-    const aboutFadeOut = 1 - Math.max(0, Math.min(1, projectsTop / windowHeight));
-    const projectsProgress = 1 - Math.max(0, Math.min(1, projectsTop / windowHeight));
-
+    const aboutHeight = aboutSection.offsetHeight;
+    const projectsHeight = projectsSection.offsetHeight;
+  
+    // Ensure about is fully white when in view
+    let aboutProgress = 1 - Math.min(1, Math.max(0, aboutTop / windowHeight));
+    let projectsProgress = 1 - Math.min(1, Math.max(0, projectsTop / windowHeight));
+  
+    // Adjust the overlap: About should fade before projects takes over
+    if (projectsProgress > 0) {
+      aboutProgress = Math.max(0, 1 - projectsProgress * 1.2); // Overlap for smooth transition
+    }
+  
     return {
-      about: Math.max(0, aboutProgress - aboutFadeOut),
+      about: aboutProgress,
       projects: projectsProgress,
     };
   };
+  
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -66,9 +75,14 @@ export default function NavigationBar() {
   }, [currentSection]);
 
   const getBackgroundColor = (section: string) => {
-    const alpha = scrollProgress[section as keyof typeof scrollProgress] || 0;
+    let alpha = scrollProgress[section as keyof typeof scrollProgress] || 0;
+  
+    // Ensure minimum visibility
+    if (alpha < 0.1) alpha = 0;
+  
     return `rgba(${isDark ? "0, 0, 0" : "255, 255, 255"}, ${alpha})`;
   };
+  
 
   const getTextColor = (section: string) => {
     const baseColor = isDark ? "0, 0, 0" : "255, 255, 255";
@@ -96,7 +110,12 @@ export default function NavigationBar() {
 
   const handleNavClick = (sectionId: string, pagePath: string) => {
     if (pathname === "/") {
-      document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
+      const section = document.getElementById(sectionId);
+      if (section) {
+        const navHeight = 120; // Height of navbar
+        const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({ top: sectionTop - navHeight, behavior: "smooth" });
+      }
     } else {
       router.push(pagePath);
     }
@@ -104,6 +123,7 @@ export default function NavigationBar() {
 
   return (
     <nav id="divNavBar" className="fixed top-0 left-0 w-full z-50 h-[120px] shadow-md bg-[#36c1cf] flex items-center">
+
       {/* About Tab */}
       <div
         id="divAboutTab"
@@ -117,11 +137,19 @@ export default function NavigationBar() {
         About
       </div>
 
+      <a href="https://github.com/orgs/RisingSunIT" target="_blank" rel="noopener noreferrer">
+          <FaGithub className="text-3xl cursor-pointer hover:text-gray-500 transition-colors" style={{ color : isDark ? "black" : "white"}} />
+        </a>
+
       {/* Logo in the center */}
       <div id="divLogo" className="flex-1 flex justify-center items-center cursor-pointer transition-opacity duration-500"
         onClick={() => handleNavClick("blog", "/blog")}>
         <Logo scrollProgress={scrollProgress} />
       </div>
+
+      <a href="https://linkedin.com/in/fabian-philippczyck" target="_blank" rel="noopener noreferrer">
+        <FaLinkedin className="text-3xl cursor-pointer hover:text-blue-500 transition-colors" style={{ color : isDark ? "black" : "white"}} />
+      </a>
 
       {/* Projects Tab */}
       <div
