@@ -41,10 +41,9 @@ export default function NavigationBar() {
   
     if (!aboutSection || !projectsSection) return { about: 0, projects: 0 };
   
+    const navbarHeight = 120; // Adjust based on actual navbar height
     const aboutTop = aboutSection.getBoundingClientRect().top;
-    const projectsTop = projectsSection.getBoundingClientRect().top;
-    const aboutHeight = aboutSection.offsetHeight;
-    const projectsHeight = projectsSection.offsetHeight;
+    const projectsTop = projectsSection.getBoundingClientRect().top - navbarHeight;
   
     // Ensure about is fully white when in view
     let aboutProgress = 1 - Math.min(1, Math.max(0, aboutTop / windowHeight));

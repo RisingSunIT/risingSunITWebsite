@@ -5,7 +5,7 @@ import Projects from "./components/Projects/page";
 
 export default function Home() {
   return (
-    <main>
+    <main className="font-['Lustria']">
       <NavigationBar/>
       <div id="divNavBarSpacer" className="h-[120px]"/>
       <Blog></Blog>

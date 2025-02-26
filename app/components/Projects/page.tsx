@@ -1,56 +1,75 @@
 export default function Projects() {
+  const projects = [
+    {
+      title: "Coming soon...",
+      startDate: "20XX/XX",
+      endDate: "20XX/XX",
+      summary: "Coming soon...",
+      technologies: "Coming soon...",
+      achievements: "Coming soon...",
+    },
+    {
+      title: "Coming soon...",
+      startDate: "20XX/XX",
+      endDate: "20XX/XX",
+      summary: "Coming soon...",
+      technologies: "Coming soon...",
+      achievements: "Coming soon...",
+    },
+    {
+      title: "Coming soon...",
+      startDate: "2025/3",
+      endDate: "ongoing",
+      summary: "Developing and publishing a popular mobile game.",
+      technologies: "flutter with flame engine",
+      achievements: "Coming soon...",
+    },
+    {
+      title: "RisingSunIT website",
+      startDate: "2025/1",
+      endDate: "2025/2",
+      summary: "Setting up and hosting this website. The start of our professional journey!",
+      technologies: "Next.js, React, Typescript, animations with CSS",
+      achievements: "✅ Establishing a strong online presence within a minimal timeframe",
+    },
+  ];
+
   return (
-    <section id="projects" className="dark:bg-black">
-      <div className="w-[1440px] h-[1024px] relative  overflow-hidden">
-        <div className="w-[1350px] h-[92px] left-[60px] top-[888px] absolute">
-          <div className="w-[852px] h-[92px] left-[498px] top-0 absolute text-black text-2xl font-normal font-['Lustria']">short summary<br/>used technologies<br/>✅ achieved goals</div>
-          <div className="w-[457px] h-[92px] left-0 top-0 absolute">
-            <div className="w-[457px] h-[92px] left-0 top-0 absolute bg-[#36c1cf] rounded-[30px]"></div>
-            <div className="w-[223px] h-[92px] left-[201px] top-0 absolute text-center text-white text-2xl font-normal font-['Lustria']">Project title</div>
-            <div className="w-[148px] h-[92px] left-[24px] top-0 absolute text-white text-2xl font-normal font-['Lustria']">20XX/XX ~<br/>20XX/XX</div>
+    <section id="projects" className="dark:bg-black w-[1440px] relative overflow-hidden">
+      {projects.map((project, index) => {
+        const isFirst = index === 0;
+        const isLast = index === projects.length - 1;
+        const shadowSize = `${index * 4}px ${index * 4}px ${index * 8}px rgba(0,0,0,0.3)`;
+
+        return (
+          <div
+            key={index}
+            id="projectRow"
+            className={`m-16 flex ${isFirst ? "mt-8" : ""} ${isLast ? "mb-8" : ""}`}
+          >
+          <div
+            id="projectPill"
+            className="bg-[#36c1cf] relative overflow-hidden rounded-[30px] w-[35%] p-4 flex items-center text-center text-white dark:text-black transition-shadow duration-300"
+            style={{ boxShadow: shadowSize }}
+          >
+          {/* Glare Effect */}
+          <div className="absolute top-0 left-[-100%] w-[120%] h-full bg-gradient-to-r from-transparent via-white/60 to-transparent dark:via-black/60 opacity-0 skew-x-[-20deg] 
+                        transition-opacity duration-300 hover:opacity-100 hover:animate-glare infinite"></div>
+          <div className="text-2xl w-2/3">{project.title}</div>
+          <div className="text-xl w-1/3">
+            <p>{project.startDate} ~</p>
+            <p className="pr-4">{project.endDate}</p>
           </div>
-        </div>
-        <div className="w-[1350px] h-[92px] left-[60px] top-[747px] absolute">
-          <div className="w-[852px] h-[92px] left-[498px] top-0 absolute text-black text-2xl font-normal font-['Lustria']">short summary<br/>used technologies<br/>✅ achieved goals</div>
-          <div className="w-[457px] h-[92px] left-0 top-0 absolute">
-            <div className="w-[457px] h-[92px] left-0 top-0 absolute bg-[#36c1cf] rounded-[30px]"></div>
-            <div className="w-[223px] h-[92px] left-[201px] top-0 absolute text-center text-white text-2xl font-normal font-['Lustria']">Project title</div>
-            <div className="w-[148px] h-[92px] left-[24px] top-0 absolute text-white text-2xl font-normal font-['Lustria']">20XX/XX ~<br/>20XX/XX</div>
           </div>
-        </div>
-        <div className="w-[1350px] h-[92px] left-[60px] top-[606px] absolute">
-          <div className="w-[852px] h-[92px] left-[498px] top-0 absolute text-black text-2xl font-normal font-['Lustria']">short summary<br/>used technologies<br/>✅ achieved goals</div>
-          <div className="w-[457px] h-[92px] left-0 top-0 absolute">
-            <div className="w-[457px] h-[92px] left-0 top-0 absolute bg-[#36c1cf] rounded-[30px]"></div>
-            <div className="w-[223px] h-[92px] left-[201px] top-0 absolute text-center text-white text-2xl font-normal font-['Lustria']">Project title</div>
-            <div className="w-[148px] h-[92px] left-[24px] top-0 absolute text-white text-2xl font-normal font-['Lustria']">20XX/XX ~<br/>20XX/XX</div>
+            <div id="spacer" className="w-[5%]"></div>
+            <div className="w-[60%] dark:text-white text-2xl">
+              <div>{project.summary}</div>
+              <div>{project.technologies}</div>
+              <div>{project.achievements}</div>
+            </div>
           </div>
-        </div>
-        <div className="w-[1350px] h-[92px] left-[50px] top-[465px] absolute">
-          <div className="w-[852px] h-[92px] left-[498px] top-0 absolute text-black text-2xl font-normal font-['Lustria']">short summary<br/>used technologies<br/>✅ achieved goals</div>
-          <div className="w-[457px] h-[92px] left-0 top-0 absolute">
-            <div className="w-[457px] h-[92px] left-0 top-0 absolute bg-[#36c1cf] rounded-[30px]"></div>
-            <div className="w-[223px] h-[92px] left-[201px] top-0 absolute text-center text-white text-2xl font-normal font-['Lustria']">Project title</div>
-            <div className="w-[148px] h-[92px] left-[24px] top-0 absolute text-white text-2xl font-normal font-['Lustria']">20XX/XX ~<br/>20XX/XX</div>
-          </div>
-        </div>
-        <div className="w-[1350px] h-[92px] left-[50px] top-[324px] absolute">
-          <div className="w-[852px] h-[92px] left-[498px] top-0 absolute text-black text-2xl font-normal font-['Lustria']">short summary<br/>used technologies<br/>✅ achieved goals</div>
-          <div className="w-[457px] h-[92px] left-0 top-0 absolute">
-            <div className="w-[457px] h-[92px] left-0 top-0 absolute bg-[#36c1cf] rounded-[30px]"></div>
-            <div className="w-[223px] h-[92px] left-[201px] top-0 absolute text-center text-white text-2xl font-normal font-['Lustria']">Project title</div>
-            <div className="w-[148px] h-[92px] left-[24px] top-0 absolute text-white text-2xl font-normal font-['Lustria']">20XX/XX ~<br/>20XX/XX</div>
-          </div>
-        </div>
-        <div className="w-[1350px] h-[92px] left-[50px] top-[183px] absolute">
-          <div className="w-[852px] h-[92px] left-[498px] top-0 absolute text-black text-2xl font-normal font-['Lustria']">short summary<br/>used technologies<br/>✅ achieved goals</div>
-          <div className="w-[457px] h-[92px] left-0 top-0 absolute">
-            <div className="w-[457px] h-[92px] left-0 top-0 absolute bg-[#36c1cf] rounded-[30px]"></div>
-            <div className="w-[223px] h-[92px] left-[201px] top-0 absolute text-center text-white text-2xl font-normal font-['Lustria']">Project title</div>
-            <div className="w-[148px] h-[92px] left-[24px] top-0 absolute text-white text-2xl font-normal font-['Lustria']">20XX/XX ~<br/>20XX/XX</div>
-          </div>
-        </div>
-      </div>
+        );
+      })}
     </section>
   );
 }
