@@ -16,20 +16,32 @@ export default {
       animation: {
         "move-horizontal": "moveX 4s ease-in infinite",
         "move-horizontal-reverse": "moveXReverse 4s ease-in infinite",
+        "move-horizontal-sm": "moveXSmall 4s ease-in infinite",
+        "move-horizontal-reverse-sm": "moveXReverseSmall 4s ease-in infinite",
         "move-vertical-up": "moveYUp 4s ease-in infinite",
         "move-vertical-down": "moveYDown 4s ease-in infinite",
         "glare": "glare 2s ease-in-out",
       },
       keyframes: {
         moveX: {
-          "0%": { transform: "translateX(-500%)", opacity:"0.0" },
+          "0%": { transform: "translateX(-100%)", opacity:"0.0" },
           "50%": { opacity:"1.0" },
-          "100%": { transform: "translateX(500%)", opacity:"0.0" },
+          "100%": { transform: "translateX(1000%)", opacity:"0.0" },
         },
         moveXReverse: {
-          "0%": { transform: "translateX(500%)", opacity:"0.0" },
+          "0%": { transform: "translateX(1000%)", opacity:"0.0" },
           "50%": { opacity:"1.0" },
-          "100%": { transform: "translateX(-500%)", opacity:"0.0" },
+          "100%": { transform: "translateX(-100%)", opacity:"0.0" },
+        },
+        moveXSmall: {
+          "0%": { transform: "translateX(-100%)", opacity: "0.0" },
+          "50%": { opacity: "1.0" },
+          "100%": { transform: "translateX(350%)", opacity: "0.0" },
+        },
+        moveXReverseSmall: {
+          "0%": { transform: "translateX(350%)", opacity: "0.0" },
+          "50%": { opacity: "1.0" },
+          "100%": { transform: "translateX(-100%)", opacity: "0.0" },
         },
         moveYUp: {
           "0%": { transform: "translateY(250%)", opacity:"0.0" },

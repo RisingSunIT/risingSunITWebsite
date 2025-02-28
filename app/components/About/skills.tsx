@@ -23,8 +23,8 @@ const skills = [
 
 export default function SkillsTable() {
   return (
-      <div className="m-4 w-1/5">
-        <h1 className="text-[#36c1cf] text-4xl p-4">Technologies</h1>
+      <div>
+        <h1 className="text-[#36c1cf] text-4xl text-center pb-4">Technologies</h1>
         <table className="w-full">
           <tbody>
             {skills.map((skill, index) => (
@@ -34,7 +34,7 @@ export default function SkillsTable() {
                 <td className="pr-2">{skill.year}</td>
                 <td className="flex">
                   {Array.from({ length: skill.level }).map((_, i) => (
-                    <FaGear key={i} className="text-gray-500 dark:text-gray-300 hover:animate-spin" />
+                    <FaGear key={i} className="text-gray-500 dark:text-gray-300 animate-[spin_5s_linear_infinite]" />
                   ))}
                 </td>
               </tr>
