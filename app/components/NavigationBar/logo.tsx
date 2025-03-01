@@ -14,8 +14,8 @@ export default function Logo({ scrollProgress }: { scrollProgress: { about: numb
   );
 
   return (
-    <div className="relative w-[226px] h-[113px]">
-      <div id="sunWrapper" className="relative w-[226px] h-[113px] overflow-hidden">
+    <div className="relative w-[220px] h-[110px]">
+      <div id="sunWrapper" className="relative w-[220px] h-[110px] overflow-hidden">
         <div id="sun"
           className="absolute left-1/2 -translate-x-[57%] w-[84px] h-[64px] bg-red-600 rounded-t-full transition-all duration-700"
           style={{ bottom: `${sunBottom}px` }}
@@ -23,14 +23,14 @@ export default function Logo({ scrollProgress }: { scrollProgress: { about: numb
       </div>
       <div id="leftMountain" className="absolute bottom-0 left-1/2 -translate-x-[104%] w-0 h-0 border-l-[56px] border-l-transparent border-r-[56px] border-r-transparent border-b-[112px] border-b-black" />
       <div id="leftSnowCap" className="absolute bottom-[64px] left-1/2 -translate-x-[176%] w-0 h-0 border-l-[24px] border-l-transparent border-r-[24px] border-r-transparent border-b-[48px] border-b-white" />
-      <Rock left="left-[25%] -translate-x-[176%]" />
-      <Rock left="left-[32.2%] -translate-x-[176%]" />
-      <Rock left="left-[39.4%] -translate-x-[176%]" />
+      <Rock left="left-[24.4%] sm:left-[24.2%] -translate-x-[176%]" />
+      <Rock left="left-[31.8%] sm:left-[31.6%] -translate-x-[176%]" />
+      <Rock left="left-[39.2%] sm:left-[39%] -translate-x-[176%]" />
       <div id="rightMountain" className="absolute bottom-0 left-1/2 -translate-x-[5%] w-0 h-0 border-l-[56px] border-l-transparent border-r-[56px] border-r-transparent border-b-[112px] border-b-black" />
       <div id="rightSnowCap" className="absolute bottom-[64px] left-1/2 -translate-x-[-55%] w-0 h-0 border-l-[24px] border-l-transparent border-r-[24px] border-r-transparent border-b-[48px] border-b-white" />
-      <Rock left="left-[25%] -translate-x-[-517%]" />
-      <Rock left="left-[32.2%] -translate-x-[-517%]" />
-      <Rock left="left-[39.4%] -translate-x-[-517%]" />
+      <Rock left="left-[24.4%] sm:left-[24.2%] -translate-x-[-517%]" />
+      <Rock left="left-[31.8%] sm:left-[31.6%] -translate-x-[-517%]" />
+      <Rock left="left-[39.2%] sm:left-[39%] -translate-x-[-517%]" />
       <div id="leftRay"
         className="absolute left-[34%] w-[2px] h-8 bg-red-600 rotate-[-25deg] top-[5px] transition-opacity duration-500"
         style={{ opacity: scrollProgress.projects }}

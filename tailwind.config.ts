@@ -20,7 +20,7 @@ export default {
         "move-horizontal-reverse-sm": "moveXReverseSmall 4s ease-in infinite",
         "move-vertical-up": "moveYUp 4s ease-in infinite",
         "move-vertical-down": "moveYDown 4s ease-in infinite",
-        "glare": "glare 2s ease-in-out",
+        "glare": "glare 2s ease-in-out infinite",
       },
       keyframes: {
         moveX: {

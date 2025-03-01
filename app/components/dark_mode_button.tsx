@@ -1,6 +1,6 @@
 "use client";
 
-// TEMPORARY
+// for testing dark mode
 
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";

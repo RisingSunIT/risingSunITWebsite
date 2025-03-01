@@ -123,22 +123,24 @@ export default function NavigationBar() {
   return (
     <nav id="divNavBar" className="fixed top-0 left-0 w-full z-50 h-[120px] shadow-md bg-[#36c1cf] flex items-center">
 
-      {/* About Tab */}
-      <div
-        id="divAboutTab"
-        className="flex-1 h-full text-center content-center text-5xl font-['Lustria'] transition-colors duration-200 cursor-pointer"
-        style={{
-          backgroundColor: getBackgroundColor("about"),
-          color: getTextColor("about"),
-        }}
-        onClick={() => handleNavClick("about", "/about")}
-      >
-        About
-      </div>
+      <div className="flex flex-col flex-grow items-center sm:flex-row h-full">
+        {/* About Tab */}
+        <div
+          id="divAboutTab"
+          className="h-full w-full flex-1 text-center content-center text-2xl sm:text-5xl font-['Lustria'] transition-colors duration-200 cursor-pointer"
+          style={{
+            backgroundColor: getBackgroundColor("about"),
+            color: getTextColor("about"),
+          }}
+          onClick={() => handleNavClick("about", "/about")}
+        >
+          About
+        </div>
 
-      <a href="https://github.com/orgs/RisingSunIT" target="_blank" rel="noopener noreferrer">
-          <FaGithub className="text-3xl cursor-pointer hover:text-gray-500 transition-colors" style={{ color : isDark ? "black" : "white"}} />
+        <a href="https://github.com/orgs/RisingSunIT" target="_blank" rel="noopener noreferrer">
+            <FaGithub className="text-3xl cursor-pointer hover:text-gray-500 transition-colors" style={{ color : isDark ? "black" : "white"}} />
         </a>
+      </div>
 
       {/* Logo in the center */}
       <div id="divLogo" className="flex-1 flex justify-center items-center cursor-pointer transition-opacity duration-500"
@@ -146,26 +148,27 @@ export default function NavigationBar() {
         <Logo scrollProgress={scrollProgress} />
       </div>
 
-      <a href="https://linkedin.com/in/fabian-philippczyck" target="_blank" rel="noopener noreferrer">
-        <FaLinkedin className="text-3xl cursor-pointer hover:text-blue-500 transition-colors" style={{ color : isDark ? "black" : "white"}} />
-      </a>
+      <div className="h-full flex flex-col-reverse flex-grow items-center sm:flex-row">
+        <a href="https://linkedin.com/in/fabian-philippczyck" target="_blank" rel="noopener noreferrer">
+          <FaLinkedin className="text-3xl cursor-pointer hover:text-blue-500 transition-colors" style={{ color : isDark ? "black" : "white"}} />
+        </a>
 
-      {/* Projects Tab */}
-      <div
-        id="divProjectTab"
-        className="flex-1 h-full text-center content-center text-5xl font-['Lustria'] transition-colors duration-200 cursor-pointer"
-        style={{
-          backgroundColor: getBackgroundColor("projects"),
-          color: getTextColor("projects"),
-        }}
-        onClick={() => handleNavClick("projects", "/projects")}
-      >
-        Projects
+        {/* Projects Tab */}
+        <div
+          id="divProjectTab"
+          className="flex-1 h-full w-full text-center content-center text-2xl sm:text-5xl font-['Lustria'] transition-colors duration-200 cursor-pointer"
+          style={{
+            backgroundColor: getBackgroundColor("projects"),
+            color: getTextColor("projects"),
+          }}
+          onClick={() => handleNavClick("projects", "/projects")}
+        >
+          Projects
+        </div>
       </div>
 
-      {/* temp */}
-      <DarkModeToggle />
-      {/* temp */}
+      {/* for testing dark mode */}
+      {/* <DarkModeToggle /> */}
     </nav>
   );
 }
