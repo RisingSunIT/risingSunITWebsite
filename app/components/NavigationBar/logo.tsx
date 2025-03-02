@@ -1,11 +1,26 @@
 export default function Logo({ scrollProgress }: { scrollProgress: { about: number; projects: number } }) {
-  // scroll sun up
-  const sunBottom = -25 + (scrollProgress.projects > 0 
-    ? scrollProgress.projects * 12.5 + 12.5 
-    : scrollProgress.about * 12.5);
-    
-  // scroll away snow
-  const rockBottom = `${40 + (63.7 - 40) * (scrollProgress.about + scrollProgress.projects)}px`;
+  // For the rocks, we want them to rise with the about progress and stay up when in projects
+  // The key is to make their position directly proportional to the about progress
+  // When in projects, we want them to stay at their maximum position
+  
+  // Calculate rock position based on scrollProgress.about
+  const baseRockPosition = 40;
+  const maxRockPosition = 63.7;
+  
+  // Use the about progress to determine rock position
+  // When about progress is 0, rocks are at base position
+  // When about progress is 1, rocks are at max position
+  // In between, position is proportional to progress
+  const rockPosition = baseRockPosition + (maxRockPosition - baseRockPosition) * scrollProgress.about;
+  const rockBottom = `${rockPosition}px`;
+  
+  // Sun animation remains the same
+  const sunBottom = -25 + (
+    scrollProgress.projects > 0
+      ? scrollProgress.projects * 12.5 + 12.5
+      : scrollProgress.about * 12.5
+  );
+
   const Rock = ({ left }: { left: string }) => (
     <div
       className={`absolute ${left} w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-b-[16px] border-b-black transition-all duration-700`}
@@ -13,8 +28,10 @@ export default function Logo({ scrollProgress }: { scrollProgress: { about: numb
     />
   );
 
+  // Rest of the component remains unchanged
   return (
     <div className="relative w-[220px] h-[110px]">
+      {/* Component JSX remains the same */}
       <div id="sunWrapper" className="relative w-[220px] h-[110px] overflow-hidden">
         <div id="sun"
           className="absolute left-1/2 -translate-x-[57%] w-[84px] h-[64px] bg-red-600 rounded-t-full transition-all duration-700"

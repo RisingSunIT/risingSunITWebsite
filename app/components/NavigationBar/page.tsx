@@ -19,47 +19,100 @@ export default function NavigationBar() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-
-    const sections = document.querySelectorAll("section");
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setCurrentSection(entry.target.id);
-        });
-      },
-      { threshold: 0.5 }
-    );
-
-    sections.forEach((section) => observer.observe(section));
-    return () => sections.forEach((section) => observer.unobserve(section));
+  
+    // Function to determine which section is most visible in the viewport
+    const updateCurrentSection = () => {
+      const sections = document.querySelectorAll("section");
+      const navbarHeight = 120;
+      const viewportHeight = window.innerHeight;
+      const scrollY = window.scrollY;
+      
+      // Default to blog if no section is prominent
+      let maxVisibleSection = "blog";
+      let maxVisibleAmount = 0;
+      
+      sections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        
+        // Calculate how much of the section is visible in the viewport
+        const sectionTop = Math.max(rect.top, navbarHeight);
+        const sectionBottom = Math.min(rect.bottom, viewportHeight);
+        const visibleAmount = Math.max(0, sectionBottom - sectionTop);
+        
+        if (visibleAmount > maxVisibleAmount) {
+          maxVisibleAmount = visibleAmount;
+          maxVisibleSection = section.id;
+        }
+      });
+      
+      // Update current section
+      setCurrentSection(maxVisibleSection);
+      
+      // When switching to blog, force update scroll progress
+      if (maxVisibleSection === "blog") {
+        setScrollProgress(calculateScrollProgress());
+      }
+    };
+    
+    // Update on scroll and resize
+    window.addEventListener("scroll", updateCurrentSection);
+    window.addEventListener("resize", updateCurrentSection);
+    
+    // Initial update
+    updateCurrentSection();
+    
+    return () => {
+      window.removeEventListener("scroll", updateCurrentSection);
+      window.removeEventListener("resize", updateCurrentSection);
+    };
   }, []);
 
   const calculateScrollProgress = () => {
     const aboutSection = document.getElementById("about");
     const projectsSection = document.getElementById("projects");
     const windowHeight = window.innerHeight;
-  
+    
     if (!aboutSection || !projectsSection) return { about: 0, projects: 0 };
-  
+    
     const navbarHeight = 120; // Adjust based on actual navbar height
-    const aboutTop = aboutSection.getBoundingClientRect().top;
-    const projectsTop = projectsSection.getBoundingClientRect().top - navbarHeight;
-  
-    // Ensure about is fully white when in view
-    let aboutProgress = 1 - Math.min(1, Math.max(0, aboutTop / windowHeight));
-    let projectsProgress = 1 - Math.min(1, Math.max(0, projectsTop / windowHeight));
-  
-    // Adjust the overlap: About should fade before projects takes over
-    if (projectsProgress > 0) {
-      aboutProgress = Math.max(0, 1 - projectsProgress * 1.2); // Overlap for smooth transition
+    
+    // Get section positions relative to viewport
+    const aboutRect = aboutSection.getBoundingClientRect();
+    const projectsRect = projectsSection.getBoundingClientRect();
+    
+    // Calculate progress: 0 when section top is at viewport bottom, 1 when section top is at navbar bottom
+    const viewportBottom = windowHeight;
+    const transitionDistance = viewportBottom - navbarHeight;
+    
+    // For about section
+    let aboutProgress = 0;
+    if (aboutRect.top <= navbarHeight) {
+      // Section is at or above navbar bottom
+      aboutProgress = 1;
+    } else if (aboutRect.top < viewportBottom) {
+      // Section is between viewport bottom and navbar bottom
+      aboutProgress = (viewportBottom - aboutRect.top) / transitionDistance;
     }
-  
+    
+    // For projects section
+    let projectsProgress = 0;
+    if (projectsRect.top <= navbarHeight) {
+      // Section is at or above navbar bottom
+      projectsProgress = 1;
+    } else if (projectsRect.top < viewportBottom) {
+      // Section is between viewport bottom and navbar bottom
+      projectsProgress = (viewportBottom - projectsRect.top) / transitionDistance;
+    }
+    
+    // Ensure values are between 0 and 1
+    aboutProgress = Math.min(1, Math.max(0, aboutProgress));
+    projectsProgress = Math.min(1, Math.max(0, projectsProgress));
+    
     return {
       about: aboutProgress,
       projects: projectsProgress,
     };
   };
-  
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -74,37 +127,59 @@ export default function NavigationBar() {
   }, [currentSection]);
 
   const getBackgroundColor = (section: string) => {
-    let alpha = scrollProgress[section as keyof typeof scrollProgress] || 0;
+    const baseColor = "54, 193, 207";
+    const highlightColor = isDark ? "0, 0, 0" : "255, 255, 255";
   
-    // Ensure minimum visibility
-    if (alpha < 0.1) alpha = 0;
+    // When on blog section, always use base color with full opacity
+    if (currentSection === "blog") {
+      return `rgba(${baseColor}, 1)`;
+    }
   
-    return `rgba(${isDark ? "0, 0, 0" : "255, 255, 255"}, ${alpha})`;
-  };
-  
-
-  const getTextColor = (section: string) => {
-    const baseColor = isDark ? "0, 0, 0" : "255, 255, 255";
-    const highlightColor = "54, 193, 207";
-
-    if (currentSection === "blog") return `rgba(${baseColor})`;
-
-    const progress = scrollProgress.about || initialProgress.about;
+    const aboutProgress = scrollProgress.about || initialProgress.about;
     const projectsProgress = scrollProgress.projects || initialProgress.projects;
-
+  
     if (currentSection === "about") {
       return section === "about"
-        ? `rgba(${highlightColor}, ${progress})`
-        : `rgba(${baseColor}, ${progress})`;
+        ? `rgba(${highlightColor}, ${aboutProgress})`
+        : `rgba(${baseColor}, ${aboutProgress})`;
     }
-
+  
     if (currentSection === "projects") {
       return section === "projects"
         ? `rgba(${highlightColor}, ${projectsProgress})`
         : `rgba(${baseColor}, ${projectsProgress})`;
     }
+  
+    // Default fallback - should rarely be reached
+    return `rgba(${baseColor}, 1)`;
+  };
 
-    return `rgba(${baseColor})`;
+  const getTextColor = (section: string) => {
+    const baseColor = isDark ? "0, 0, 0" : "255, 255, 255";
+    const highlightColor = "54, 193, 207";
+  
+    // When on blog section, always use base color with full opacity
+    if (currentSection === "blog") {
+      return `rgba(${baseColor}, 1)`;
+    }
+  
+    const aboutProgress = scrollProgress.about || initialProgress.about;
+    const projectsProgress = scrollProgress.projects || initialProgress.projects;
+  
+    if (currentSection === "about") {
+      return section === "about"
+        ? `rgba(${highlightColor}, ${aboutProgress})`
+        : `rgba(${baseColor}, ${aboutProgress})`;
+    }
+  
+    if (currentSection === "projects") {
+      return section === "projects"
+        ? `rgba(${highlightColor}, ${projectsProgress})`
+        : `rgba(${baseColor}, ${projectsProgress})`;
+    }
+  
+    // Default fallback - should rarely be reached
+    return `rgba(${baseColor}, 1)`;
   };
 
   const handleNavClick = (sectionId: string, pagePath: string) => {
